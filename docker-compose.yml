@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  bitwarden:
+    image: vaultwarden/server:1.32.7
+    hostname: bitwarden
+    container_name: bitwarden
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    volumes:
+      - ./data:/data
+    environment:
+      - WEBSOCKET_ENABLED=true
+      - SIGNUPS_ALLOWED=false
+      - SMTP_HOST=smtp.office365.com
+      - SMTP_FROM=xxxx@xxxx
+      - SMTP_PORT=587
+      - SMTP_SECURITY=starttls
+      - SMTP_USERNAME=xxxx@xxxx
+      - SMTP_PASSWORD=xxxx
+      - SMTP_AUTH_MECHANISM=Login        
+      - DOMAIN=https://xxxx
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024M
+    networks:
+      - default
